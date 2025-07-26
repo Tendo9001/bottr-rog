@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bottoru CRM 前台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="container">
+    <img src="bot 2.png" alt="Hero Image" class="hero-image">
+    <h1>Bottoru</h1>
+    <p>🤖 TG + Gmail 自动化系统</p>
+    <p><strong>专注 Telegram Bot + Google Script 整合 Gmail 通知、任务处理与表格记录</strong></p>
+    <ul>
+      <li>✅ 自动通知</li>
+      <li>✅ 按钮处理</li>
+      <li>✅ Log记录</li>
+    </ul>
+    <p>让你团队少烦恼，多效率！</p>
+
+    <h2>客户资料登记</h2>
+    <form id="customerForm">
+      <p id="successMessage" style="display: none; color: lightgreen; font-weight: bold; margin-top: 10px;">
+  ✅ 资料已成功送出，谢谢您的填写！
+</p>
+      <input type="text" id="name" name="name" placeholder="您的姓名" required>
+      <input type="email" id="email" name="email" placeholder="您的邮箱" required>
+      <input type="text" id="phone" name="phone" placeholder="联系电话" required>
+      <input type="text" id="service" name="service" placeholder="请简单说明您需要的服务" required>
+      <button type="submit">提交资料</button>
+    </form>
+
+  </div>
+
+  <script>
+  function showToast() {
+  const toast = document.getElementById("toast");
+  const overlay = document.getElementById("toastOverlay");
+  
+  toast.classList.add("show");
+  overlay.classList.add("show");
+  document.body.style.overflow = "hidden"; // 锁住页面滑动
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    overlay.classList.remove("show");
+    document.body.style.overflow = ""; // 解锁页面滑动
+  }, 3000);
+}
+
+
+    const form = document.getElementById("customerForm");
+    const tableBody = document.getElementById("customerTableBody");
+
+    form.addEventListener("submit", function (e) {
+  e.preventDefault();
+ showToast();
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const service = document.getElementById("service").value;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(email)) {
+  alert("请输入有效的 Email 地址！");
+  return;
+}
+
+  // 送往 Google Sheets
+  fetch("https://script.google.com/macros/s/AKfycbwjY268Ih-Y9WoAz5ac1fFJww8VHg83ATFozIDoAo-oWWL-7M3r2GieHaRBYEI3T8qW/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&service=${encodeURIComponent(service)}`
+  });
+
+  form.reset();
+});
+
+  </script>
+  <!-- Toast + Overlay -->
+<div id="toastOverlay"></div>
+<div id="toast" class="toast">✅ 资料已成功送出，谢谢您的填写！</div>
+</body>
+</html>

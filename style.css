@@ -1,0 +1,131 @@
+/* Reset & base background */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url("background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 背景模糊效果：用 overlay 背一个玻璃卡片 */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: white;
+}
+
+/* 统一容器 */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 标题 */
+h1, h2 {
+  text-align: center;
+  color: #fff;
+}
+
+/* 表单布局 */
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+input, button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+}
+
+input {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  grid-column: span 2;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* 表格美化 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #e0e0e0;
+  text-align: left;
+}
+/* 中央弹窗 toast */
+.toast {
+  visibility: hidden;
+  min-width: 320px;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 24px 32px;
+  font-size: 20px;
+  border-radius: 12px;
+  position: fixed;
+  z-index: 10001;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 背景模糊锁定 */
+#toastOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#toastOverlay.show {
+  visibility: visible;
+  opacity: 1;
+}
